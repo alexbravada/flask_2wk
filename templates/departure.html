@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 {% block container %}
   <main class="container mt-3">
-    <h1 class="display-5 mt-4">{{ napravlenie }}</h1>
-    <p class="mb-4">Найдено {{count_hotels}} тура, цена от {{min_price}} до {{max_price}} руб. и от {{min_nights}} ночей до {{max_nights}} ночей.</p>
+    <h1 class="display-5 mt-4">{{ departure }}</h1>
+    <p class="mb-4">Найдено {{count_tours}} тура, цена от {{min_price}} до {{max_price}} руб. и от {{min_nights}} ночей до {{max_nights}} ночей.</p>
     <!-- CARDS -->
-    <div class="row mt-5">{% for key, val in hotels_dep.items() %}
+    <div class="row mt-5">{% for key, val in tours_dep.items() %}
       <div class="col-4">
         <div class="card mb-4">
-          <img src="{{ val.picture }}" class="card-img-top img-fluid" alt="">
+            <div class="embed-responsive embed-responsive-16by9">
+                <img src="{{ val.picture }}" class="card-img-top embed-responsive-item" alt="">
+            </div>
           <div class="card-body">
-            <h2 class="h5 card-title">{{ val.title }} {{val.stars | int *('★') }}</h2>
-            <p class="card-text">Cтрана: {{ val.country }}<br>Количество звезд: {{ val.stars }}<br>
-              Дата заселения: {{ val.date }}<br>Количество ночей: {{ val.nights }}<br> Цена: {{ val.price }} руб.
+            <h2 class="h5 card-title">{{ val.title }}<br> {{val.stars | int *('★') }}</h2>
+            <p class="card-text">Cтрана: {{ val.country }}<br>
+              Дата заселения: {{ val.date }}<br>Количество ночей: {{ val.nights }}<br> Цена: {{ val.price }} руб.<br><br>
+              {{ val.description[:35] }}...
             </p>
-            <a href="#" class="btn btn-sm btn-primary">Подробнее</a>
+            <a href="/tours/{{ key }}/" class="btn btn-sm btn-primary">Подробнее</a>
           </div>
         </div>
       </div>{% endfor %}
